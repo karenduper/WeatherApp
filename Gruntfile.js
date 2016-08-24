@@ -8,6 +8,8 @@
 // 'test/spec/**/*.js'
 
 module.exports = function (grunt) {
+  //Plugin
+  grunt.loadNpmTasks('grunt-aws');
 
   // Time how long tasks take. Can help when optimizing build times
   require('time-grunt')(grunt);
@@ -31,6 +33,27 @@ module.exports = function (grunt) {
     // Project settings
     yeoman: appConfig,
 
+    //Trying to do homework 
+
+  s3: {
+    options: {
+    accessKeyId: 'AKIAJMBTREXLISNFONDA', // Use the variables
+    secretAccessKey: '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', // You can also use env variables
+    //aqui estaba la region
+    access: 'public-read',
+    connections: 5,  
+    bucket: 'xpertwanderer'
+  }, 
+  dist:{
+files: [{
+expand:true,
+cwd: 'dist/',
+src:'**/*.*',
+dest: './'
+}]
+}
+},
+
     // Watches files for changes and runs tasks based on the changed files
     watch: {
       bower: {
@@ -42,7 +65,7 @@ module.exports = function (grunt) {
         tasks: ['newer:jshint:all', 'newer:jscs:all'],
         options: {
           livereload: '<%= connect.options.livereload %>'
-        }
+       }
       },
       jsTest: {
         files: ['test/spec/{,*/}*.js'],
@@ -473,6 +496,25 @@ module.exports = function (grunt) {
     'usemin',
     'htmlmin'
   ]);
+
+ grunt.registerTask( 'deploy', [
+'clean:dist',
+    'wiredep',
+    'useminPrepare',
+    'concurrent:dist',
+    'postcss',
+    'ngtemplates',
+    'concat',
+    'ngAnnotate',
+    'copy:dist',
+    'cdnify',
+    'cssmin',
+    'uglify',
+    'filerev',
+    'usemin',
+    'htmlmin',
+    's3'
+]);
 
   grunt.registerTask('default', [
     'newer:jshint',

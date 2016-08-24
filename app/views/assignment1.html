@@ -1,0 +1,201 @@
+<p>This is the Assignment1 view.</p>
+Assignment 1 <br>
+
+1. Read the following article http://martinfowler.com/articles/microservices.html and explain what "Microservices Architecture" means 20 points. <br>
+
+Microservices Architecture es un término que se utiliza para describir la manera que en que se diseñan aplicaciones de software desplegando servicios de manera independiente, que aunque no muy bien definido, lo conforman ciertas características.
+Este tipo de arquitectura divide el software en módulos independientes conteniendo microservicios que se comunican mediante API’s, una vez que se actualicen podrán hacerse esto de manera independiente.
+
+Se suele desarrollar una sola aplicación con una gama de servicios, cada uno corriendo sus propios procesos y comunicándose con mecanismos ligeros. Estos servicios se construyen alrededor de capacidad de negocio y maquinaria automatizada para hacerlos independientemente desplegables. Además el manejo centralizado de estos servicios se da en un mínimo.
+
+Algunas ventajas de este tipo de arquitectura es que podemos escalar los módulos de manera independiente según necesitemos a diferencia de la arquitectura monolítica en la que tendrias que escalar todo al mismo tiempo. Además de que si un componente del sistema falla el problema queda aislado y el resto del sistema continúa funcionando, por este mismo motivo también es más sencillo hacer modificaciones en el servicio pues habría menor riesgo de impacto. Sin embargo cuenta con la desventaja de que desarrollar este tipo de sistemas distribuidos es muy complejo, asi como el manejo de bases de datos y transacciones.
+
+<br>
+<br>
+
+2.  Explain each line of the cc499-setup.sh file. 20 points.<br>
+
+#!/bin/bash (Esta línea indica que es un archivo de tipo bash) <br>
+
+echo "Start. We are about to setup the environment for your Cloud Computing class. Excited?"
+echo ":) :) :) :) :) :) :) :) :) :) :) :) :) :)" (echo imprime en consola lo que pongas entre comillas, en este caso va a regresar muchas “smiley face”)<br>
+
+cd $HOME (cd $HOME significa que está haciendo un cambio de directorio a la variable $HOME. Esta variable contiene el path del home folder)<br>
+
+mkdir Projects (mkdir crea el directorio Projects)<br>
+
+mkdir .aws (mkdir crea un directorio escondido porque tiene un punto al principio del nombre. Para buscar este directorio se tiene que usar el comando ls -a)<br>
+
+cd .aws (esta línea está cambiando de directorio al directorio escondido)<br>
+
+touch credentials (el comando touch, crea archivos vacíos. En este caso está creando un archivo vacío que se llama credentials)<br>
+
+cd .. (esta línea está haciendo lo mismo que la línea “cd $HOME”, es otra manera de regresar al home folder)<br>
+
+sudo apt-get update (esta línea revisa que estén todos los paquetes actualizados, sudo te da el poder de administrador)<br>
+
+sudo apt-get install -f (compara los paquetes que ya tengo con los que debería tener e instala los que no tengo)<br>
+
+echo " **************** Installing git  **************** "<br>
+sudo apt-get install git (esta línea esta instalando git)<br>
+
+echo " **************** Installing NodeJs **************** "<br>
+sudo apt-get install nodejs (esta línea esta instalando nodejs)<br>
+
+sudo apt-get install npm (esta línea esta instalando npm)<br>
+
+sudo ln -s /usr/bin/nodejs /usr/bin/node (esta haciendo un link del path que está en la izquierda con la derecha, esto sirve para que los dos paths tengan la misma funcionalidad)<br>
+
+echo " **************** Installing AWS CLI **************** "<br>
+sudo apt-get -y install python-pip (esta instalando el package manager de python, el “-y” significa que va a responder que sí a todas las preguntas, apt-get permite descargar el paquete)<br>
+
+sudo pip install --upgrade pip (actualizando el package manager de python)<br>
+
+sudo pip install awscli --ignore-installed six (esta línea va a ignorar el six en caso de que cause un error en la instalación mientras instala awscli)<br>
+
+echo " **************** Installing yeoman **************** "<br>
+sudo npm install -g yo (esta línea va a instalar el package manager de yeoman, npm maneja librerias de node.js)<br>
+
+
+echo " **************** Installing grunt **************** "<br>
+sudo npm install -g grunt-cli (esta linea va a instalar el package manager de grunt de manera global)<br>
+
+echo " **************** Installing serverless **************** "<br>
+sudo npm install -g serverless (esta linea esta instalando serverless)<br>
+
+echo " **************** Installing dot net core **************** "<br>
+sudo apt-get install curl libunwind8 gettext (esta linea esta instalando dot net core, gettext traduce el texto)<br>
+
+curl -sSL -o dotnet.tar.gz https://go.microsoft.com/fwlink/?LinkID=809130 (esta linea transfiere el archivo dotnet.tar.gz del url dado usando el protocolo SSL, -o especifica el nombre del archivo remoto)<br>
+
+sudo mkdir -p /opt/dotnet && sudo tar zxf dotnet.tar.gz -C /opt/dotnet (Crea un directorio padre  y descomprime el archivo dotnet.tar.gs en el directorio especificado, -p significa que opera a traves de un HTTP tunel)<br>
+
+sudo ln -s /opt/dotnet/dotnet /usr/local/bin (esta haciendo un link del path que está en la izquierda con la derecha, esto sirve para que los dos paths tengan la misma funcionalidad, -s significa que no hace un output de nada)<br>
+
+<br>
+<br>
+
+3. Create a grunt task to deploy your website to your own bucket in S3. 30 points.<br>
+Es necesario hacer la instalación de:
+npm install grunt-aws-s3 --save-dev
+
+Y habilitar el plugin dentro del archivo de Grunt con:<br>
+grunt.loadNpmTasks('grunt-aws');<br>
+
+Una vez dentro del archivo, hacer la configuración siguiente:<br>
+s3: {<br>
+options: {<br>
+key: 'rtvrtvyrtherthv,<br>
+secret: 'vhyhrtyvhtryhtyh456',<br>
+bucket: 'xpertwanderer’,<br>
+access: 'public-read',<br>
+connections: 5<br>
+},<br>
+dist: {<br>
+files: [{<br>
+expand: true,<br>
+cwd: 'dist/',<br>
+src: '**/*.*',<br>
+dest: './'<br>
+}]<br>
+}<br>
+},<br>
+
+Registro del Task que queremos que se lleve a cabo ‘deploy’:<br>
+grunt.registerTask('deploy', [<br>
+'clean:dist',<br>
+'wiredep',<br>
+'useminPrepare',<br>
+'concurrent:dist',<br>
+'postcss',<br>
+'ngtemplates',<br>
+'concat',<br>
+'ngAnnotate',<br>
+'copy:dist',<br>
+'cdnify',<br>
+'cssmin',<br>
+'uglify',<br>
+'filerev',<br>
+'usemin',<br>
+'htmlmin',<br>
+'s3'<br>
+]);<br>
+<br>
+Y una vez llevada a cabo la configuración, por medio del comando grunt deploy se debería de poder actualizar la aplicación de forma automática. <br>
+<br>
+<br>
+
+4. Explain how routes work in angular and a code example. 10 points.<br>
+
+Cuando buscas poder navegar diferentes paginas desde una aplicacion y quieres que esta sea SPA sin tener que hacer reload a la aplicación completa , routing te permite hacer esto. El proceso de routing es llevado a cabo por un proveedor de servicio desde Angular llamado $routeProvider que define qué paginas mostrar cuando un usuario hace clic en un link, definir controllers para cada vista, entre otras acciones. El servicio de Angular es un objeto de singleton creado por un fábrica de servicios, funciones creadas por el proveedor de servicios.
+
+Cuando utilizamos AngularJs dependency injection e inyectamos un service object en el Controlador, Angular usa $injector para encontrar el respectivo service injector. Y una vez que lo intercepta utiliza el método $get para obtener una instancia del service object.
+
+$route service hace mas sencillo juntar controllers, ver templates y locaciones de URL’s  actuales en el browser. La aplicación necesita un container para poner el contenido provisto por el routing.
+
+Un ejemplo de código de routing se encuentra en el siguiente archivo app.js que configura esta función.<br>
+*@description<br>
+*# xpertwandererApp<br>
+*<br>
+*Main module of the application.<br>
+*/<br>
+Angular<br>
+.module(‘xpertwandererApp’),[<br>
+‘ngAnimate’,<br>
+‘ngCookies’,<br>
+‘ngResource’,<br>
+‘ngRoute’,<br>
+‘ngSanitize’,<br>
+‘ngTouch’,<br>
+])<br>
+.config.(function($routeProvider){<br>
+$routeProvider<br>
+.when(‘/’, {<br>
+templateUrl: ‘views/main.html’,<br>
+Controller: ‘MainCtrl’,<br>
+controllersAs: ‘main’<br>
+})<br>
+.when(‘/about’,{<br>
+templateUrl: ‘views/about.html’,<br>
+Controller: ‘AboutCtrl’,<br>
+controllerAs: ‘about’<br>
+})<br>
+.otherwise({<br>
+redirectTo: ‘/’<br>
+});<br>
+});<br>
+<br>
+<br>
+5. Explain how you can have more than one access key in your computer and how to use each one. Provide code or configuration examples. 10 points.<br>
+
+Para poder tener mas de un access key estas se pueden diferenciar dentro del archivo correspondiente a credenciales, con etiquetas. Y para poder utilizarlas es necesario especificar en la línea de comandos cual queremos utilizar. Los comandos son los siguientes,  en el primero de ellos guardamos nuestras claves de acceso default y después de definen las demás contraseñas.<br>
+
+[default]<br>
+aws_access_key_id=JGJHGJHGJHGJY78676<br>
+aws_secret_access_key=JYGFJYFJHF756785<br>
+
+[otracontrasenia]<br>
+aws_access_key_id= JHVJHVJHJH776575<br>
+aws_secret_access_key=KGUKGUKG675765<br>
+
+
+Para usar el access key [default] el comando es el siguiente:<br>
+Aws s3 sync . s3://xpertwanderer --acl=public-read --profile<br>
+
+Para usar el access key [otracontrasenia] el comando es el siguiente:<br>
+Aws s3 sync . s3://xpertwanderer --acl=public-read --profile otracontrasenia<br>
+<br>
+<br>
+6. Explain what are you going to do different this semester based on last semester experience. 10 points.<br>
+Primero que nada, hacerme una limpia por eso de las malas vibras y apoyarme más en los maestros, pedir ayuda e involucrarme más con los equipos.<br>
+
+<br>
+<br>
+
+
+Referencias:<br>
+http://stackoverflow.com/questions/34903605/microservices-what-are-pros-and-cons/34904942<br>
+
+http://cloudacademy.com/blog/microservices-architecture-challenge-advantage-drawback/<br>
+
+https://github.com/MathieuLoutre/grunt-aws-s3#optionsmaxretries<br>
