@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Assignment 2</title>
+</head>
+<body>
+
+
+<b>Assignment 2</b>
+<br>
+<br>
+<b>1. Automate the deployment of your web site using Grunt. 15 points.</b><br>
+<br>
+First install: <br>
+<div class="codebox">
+  <code>
+    npm install grunt-aws-s3 --save-dev<br>
+  </code>
+</div>
+<br>
+Inside the Grunt file, enable the plug in with:<br>
+<div class="codebox">
+  <code>
+    grunt.loadNpmTasks('grunt-aws');<br>
+  </code>
+</div>
+<br>
+Then configure the file as follows:<br>
+<div class="codebox">
+  <code>
+    s3: { <br>
+    options: { <br>
+    key: 'rtvrtvyrtherthv, <br>
+    secret: 'vhyhrtyvhtryhtyh456', <br>
+    bucket: 'xpertwanderer’, <br>
+    access: 'public-read', <br>
+    connections: 5 <br>
+    }, <br>
+    dist: { <br>
+    files: [{ <br>
+    expand: true, <br>
+    cwd: 'dist/', <br>
+    src: '**/*.*', <br>
+    dest: './' <br>
+     }] <br>
+     } <br>
+     }, <br>
+  </code>
+</div>
+<br>
+Configure the Task we want 'deploy' to carry out:<br>
+
+<div class="codebox">
+  <code>
+    grunt.registerTask('deploy', [<br>
+    'clean:dist',<br>
+    'wiredep',<br>
+    'useminPrepare',<br>
+    'concurrent:dist',<br>
+    'postcss',<br>
+    'ngtemplates',<br>
+    'concat',<br>
+    'ngAnnotate',<br>
+    'copy:dist',<br>
+    'cdnify',<br>
+    'cssmin',<br>
+    'uglify',<br>
+    'filerev',<br>
+    'usemin',<br>
+    'htmlmin',<br>
+    's3'<br>
+    ]);<br>
+  </code>
+</div>
+<br>
+
+Once the configuration is done, using the command <div class="codebox">
+  <code>
+    grunt deploy
+  </code>
+</div> the application should be updated in an automated way.<br>
+<br>
+<b>2. Create a Hello World in NodeJs and create a tutorial about it. 15 points.</b><br>
+This tutorial guides you through installing NodeJs and creating a Hello World in NodeJs running OSX operating system.<br>
+<br>
+<u>Prerequisites</u><br>
+Before you can install Node you'll need XCode, you can find it for free in the App Store.<br>
+You'll also need Homebrew which is a package manager for Mac. To install just open the terminal and type:<br>
+<div class="codebox">
+  <code>
+    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"<br>
+  </code>
+</div>
+The terminal will guide you through the process.<br>
+<br>
+<u>Installing Node.js</u><br>
+Now that you have Homebrew installing Node.js and NPM is pretty simple, just type in the terminal:<br>
+<div class="codebox">
+  <code>
+    brew install node<br>
+  </code>
+</div>
+Then wait for the terminal to finish installing, it should take a few minutes, and that's it.<br>
+<br>
+<u>Create Hello World in Node.js</u><br>
+Now that we have Node we can create our first program. First thing to do is create a new file with a '.js' extension as follows:<br>
+<div class="codebox">
+  <code>
+    Karens-MacBook-Air:xpertwanderer karen$ vi helloworld.js<br>
+  </code>
+</div>
+<br>
+To edit the file use the 'i' key and then you can add:<br>
+<div class="codebox">
+  <code>
+    console.log('Hello World');<br>
+  </code>
+</div>
+<br>
+Save the file and to run the program just type in the terminal:<br>
+<div class="codebox">
+  <code>
+    node helloworld.js<br>
+  </code>
+</div>
+<br>
+And that's it. It should display the next output:<br>
+<div class="codebox">
+  <code>
+    Hello World<br>
+  </code>
+</div>
+<br>
+<b>3. Install the aws sdk for nodejs and create a tutorial about it. 15 points.</b><br>
+<br>
+To install AWS SDK for Javascript in Node.js using npm running an OSX operating system, you will need to have already installed Node.js and npm,
+you can refer to the previous question for a tutorial on that installation. If you already have those installed then proceed with the
+installation of AWS SDK typing in the terminal the following command:<br>
+<div class="codebox">
+  <code>
+    npm install aws-sdk<br>
+  </code>
+</div>
+<br>
+And that's it :)<br>
+<br>
+<b>4. Create a code in NodeJs that will tell you the version/date of your website in S3. 15 points.</b><br>
+<br>
+First thing I did was to create a new file with a '.js' extension as follows:<br>
+<div class="codebox">
+  <code>
+    Karens-MacBook-Air:xpertwanderer karen$ vi webversions3.js<br>
+  </code>
+</div>
+<br>
+Once inside that file I added the following configuration:<br>
+<div class="codebox">
+  <code>
+    var AWS = require('aws-sdk');  //requires the AWS package in your node application<br>
+    <br>
+    var s3 = new AWS.S3(); //service specific configuration<br>
+    <br>
+    var params = {Bucket: 'xpertwanderer', Key: 'index.html'}; //passes parameters to read an object for a given bucket and key in S3<br>
+    <br>
+    s3.getObject(params, function(err, data) {  //getObject retrieves objects from Amazon S3<br>
+    <br>
+    if (err){<br>
+    <br>
+    console.log(err, err.stack); //error occurred<br>
+    }<br>
+    <br>
+    else{<br>
+    console.log(data.LastModified); //successful response<br>
+    }<br>
+    });<br>
+  </code>
+</div>
+
+<br>
+Then I saved it and in the terminal typed the next command which printed version/date of my website in S3:<br>
+<div class="codebox">
+  <code>
+    Karens-MacBook-Air:xpertwanderer karen$ node webversions3.js<br>
+    Wed, 24 Aug 2016 05:19:07 GMT<br>
+  </code>
+</div>
+
+<br>
+<b>5. Read and explain the post about Microservices Trade-Offs by Martin Fowler(http://martinfowler.com/articles/microservice-trade-offs.html). 15 points.</b><br>
+<br>
+The article talks about how even though microservices has become a popular practice, it does not necessarily apply to every scenario in software development since the context of what you are developing plays a huge role in whether
+this architectural style is good to use or not and the best way to make a decision it’s by understanding both the benefits and costs that come along with.
+<br>
+<br>
+The benefits of microservices the article talks about are:<br>
+- Strong Module Boundaries, which reinforce modular structure in a way that boundaries between them are harder to trespass and it’s very useful for large teams since they can focus on just one part of the software as well as for new members, enabling them to catch up.<br>
+- Independent Deployment, the fact that services are components has allowed independent deployment and since services are designed with the idea of failure in mind it shouldn’t stop the whole service from working if there were failures.<br>
+- Technology Diversity, this is is very self-explanatory, there’s a lot of room to use different technologies whether it’s a language, framework or data storage technology.<br>
+<br>
+And the costs that come with it are:<br>
+- Distribution, distributed systems come with a lot of complexities and are harder to program, since you’ll be dealing with modules you’ll have to deal with remote calls which are always at risk of failure.<br>
+- Eventual Consistency, given that data management is decentralized the use of distributed systems can cause a lot of inconsistencies.<br>
+- Operational Complexity, the constants redeployment brings a lot of operational complexities into play for which a mature team is required to be able to deal with.<br>
+<br>
+<b>6. Create a comparison table between AWS, Azure and Google Cloud. 15 points.</b><br>
+The following table displays the mayor cloud computing services and what they have to offer in a very summarized way. These are all good options depending on what you need. <br>
+<br>
+<style type="text/css">
+  .tg  {border-collapse:collapse;border-spacing:0;}
+  .tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
+  .tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
+  .tg .tg-yw4l{vertical-align:top}
+</style>
+<table class="tg">
+  <tr>
+    <th class="tg-031e">Platform</th>
+    <th class="tg-031e">AWS</th>
+    <th class="tg-031e">Azure</th>
+    <th class="tg-031e">Google Cloud</th>
+  </tr>
+  <tr>
+    <td class="tg-031e">Why is is better?</td>
+    <td class="tg-031e">The quantity and quality of the services available on AWS is extremely broad and wide just as the widespread geographical distribution, and it builds up a huge set of opportunities for many different needs. (Colangelo, A. 2014)</td>
+    <td class="tg-031e">If your business requires a hybrid cloud approach to cloud services, Azure has embraced these options a lot more. Also Azure integrates well into other Microsoft products.(Nordquist, B. 2016)</td>
+    <td class="tg-031e">One area where Google is particularly strong is Big Data. It allows you to analyze massive amounts of data in a really short time, even providing real-time insights about your datasets. It’s also easy to get started with given that it's a very complex service.(Colangelo, A. 2014)</td>
+  </tr>
+  <tr>
+    <td class="tg-031e">Billing</td>
+    <td class="tg-031e">Per hour, rounded up</td>
+    <td class="tg-031e">Per minute – rounded up</td>
+    <td class="tg-031e">Per minute,10 minute minimum</td>
+  </tr>
+  <tr>
+    <td class="tg-031e">Services</td>
+    <td class="tg-031e">Amazon Web Services offers a broad set of global cloud-based products including storage, databases, analytics, networking, mobile, developer tools, management tools, IoT, security, compute and enterprise applications. </td>
+    <td class="tg-031e">Microsoft lists over 50 Azure services that includes computing, mobile services, storage services, data management, messaging, media services, CDN, developer, management and machine learning.</td>
+    <td class="tg-031e">Google Cloud Platform is a suite of products &amp; services that includes application hosting, cloud computing, storage and database services, networking, big data, machine learning, management tools, developer tools, identity and security.</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">Regions</td>
+    <td class="tg-yw4l">AWS has 12 regions with 5 more planned and operates 33 availability zones. They include Northern Virginia, Oregon, Northern California and the AWS GovCloud in the U.S.; A Sao Paulo region in South America; Ireland and Frankfurt in Europe; and Beijing, Seoul, Tokyo, Singapore and Sydney in Asia/South Pacific. AWS has plans to add new regions in Montreal, Ohio, the United Kingdom, India and Ningxia (China).</td>
+    <td class="tg-yw4l">Microsoft Azure is available in 22 regions and has plans for 8 more. This includes North Europe, South Europe, Central US, East Us, West Us, East Asia, Brazil South, Central India, China East, China North, Canada Central, Canada East, Australia East, and many more.</td>
+    <td class="tg-yw4l">Google announced two new regions: US West in Oregon and East Asia in Tokyo, Japan, with plans to add 10 more regions at undisclosed locations by the end of 2017. Google’s cloud now has six regions including Eastern US (South Carolina), Central US (Iowa), Western Europe (Belgium) and East Asia (Taiwan) with more to come.</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">Users</td>
+    <td class="tg-yw4l">Netflix, Airbnb, Pinterest</td>
+    <td class="tg-yw4l">Ford, NBC Digital</td>
+    <td class="tg-yw4l">Snapchat, Wix</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">CSAT</td>
+    <td class="tg-yw4l">Amazon (869) ranks second, performing well in the speed of downloads/uploads and security/privacy functions factors. According to The 2015 Cloud Storage Satisfaction Report—fielded in September 2015.</td>
+    <td class="tg-yw4l">Microsoft (862) ranks third, performing above the report average in seven factors. According to The 2015 Cloud Storage Satisfaction Report—fielded in September 2015.</td>
+    <td class="tg-yw4l">Google (872) ranks highest in customer satisfaction, performing well in all nine factors. According to The 2015 Cloud Storage Satisfaction Report—fielded in September 2015.</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">Pros</td>
+    <td class="tg-yw4l"> *AWS currently has the highest number of services and options available, lending itself to the most opportunities and satisfying most needs. *Elastic Compute Cloud (EC2) allows you to increase or decrease storage as needed; between this and the pay-as-you-go plans you only pay for what you use with AWS. *It also allows you to choose the operating system, programming language, web application platform, database and other services. (Lyle, T. 2015)</td>
+    <td class="tg-yw4l"> *Has the capability for developers and users to easily create, maintain and deploy applications. *It's fully scalable, offers open access across multiple frameworks, languages and tools. *It's comprised of many different infrastructures and service modules. (Lyle, T. 2015)</td>
+    <td class="tg-yw4l"> *Strong Infrastructure (IaaS) and Platform (PaaS) options. *BigQuery capabilities allowing massive data to be analyzed in a short period of time, excellent for big data applications. *Google Compute Engine’s load balancers don’t need pre-warming. *Pay-per-use option taken to the extreme: billing minute by minute. (Lyle, T. 2015)</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">Cons</td>
+    <td class="tg-yw4l"> *AWS elastic load balancer (ELB) is not equipped to handle as many requests as it receives. However, you can purchase another service, ELB with AutoScaling, to counteract. *Another con it's that the number of choices can be confusing to those who may not speak the language of technology. *AWS lacks customer support, gearing toward a more technically savvy group of consumers and/or those with access to tech support. (Lyle, T. 2015)</td>
+    <td class="tg-yw4l"> *Customer service is confusing and data is hosted globally. If you have data restrictions where it must be housed in a certain country, you must verify/specify with Microsoft. *Comparatively expensive. *You are charged extra for paying as you go (versus paying in blocks of $100.00).(Lyle, T. 2015)</td>
+    <td class="tg-yw4l"> *Not as many options as AWS (at least for the moment). *Lacks widespread geographical distribution. *Google’s App Engine is limited to Java, Python, PHP and Google Go. (Lyle, T. 2015)</td>
+  </tr>
+</table>
+<br>
+<b>7. Read at least 5 sections of Seth Godin’s Manifesto: “Stop Stealing Dreams” and tell me what you think about it. 10 points.</b><br>
+<br>
+Based on what I read (sections 1-6, 11, 14, 19, 21) I think it’s a good book to start a discussion on education,
+the world and our needs have changed a lot since this kind of institutions were created and I do agree that schools
+focus a lot on the wrong things in a way that it’s taking away a lot of the potential people have to make the world a better place.
+Given how little I got to read I was left wondering if the author ever offered a solution or if he displayed cases
+of success in current alternative schooling systems and given that education is tied up to so many other subjects,
+how change for better education would play a part in them cause so far the narrative has been from that of the history of
+education for white men and I think it’s important to note how race and gender as well as other factors such
+as poverty, disabilities, etc., have an impact on the results of education as well as the types of jobs we get.
+<br>
+<br>
+References:<br>
+http://blog.teamtreehouse.com/install-node-js-npm-mac<br>
+http://nodeguide.com/beginner.html<br>
+http://docs.aws.amazon.com/AWSJavaScriptSDK/guide/node-intro.html<br>
+http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html<br>
+http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html#getObject-property<br>
+<br>
+Table references:<br>
+https://azure.microsoft.com/en-us/regions/<br>
+https://aws.amazon.com/about-aws/global-infrastructure/<br>
+http://www.zdnet.com/article/google-cloud-platform-adds-regions-aims-to-close-global-cloud-computing-gap/<br>
+http://www.networkworld.com/article/3047103/cloud-computing/google-adds-two-new-cloud-regions-plans-10-more.html<br>
+http://scottge.net/2015/08/03/a-complete-list-of-microsoft-azure-tools/<br>
+https://cloud.google.com/products/<br>
+https://aws.amazon.com/products/<br>
+https://www.techopedia.com/2/31280/trends/the-four-major-cloud-players-pros-and-cons<br>
+http://www.prnewswire.com/news-releases/google-ranks-highest-in-customer-satisfaction-with-cloud-storage-services-300155329.html<br>
+http://www.storagecraft.com/blog/microsoft-azure-vs-amazon-aws/<br>
+http://cloudacademy.com/blog/google-cloud-vs-aws-a-comparison/<br>
+<br>
+
+</body>
+</html>

@@ -29,10 +29,25 @@ angular
         controller: 'AboutCtrl',
         controllerAs: 'about'
       })
+      .when('/Assignments', {
+        templateUrl: 'views/assignments.html',
+        controller: 'AssignmentsCtrl',
+        controllerAs: 'Assignments'
+      })
       .when('/Assignment1', {
         templateUrl: 'views/assignment1.html',
         controller: 'Assignment1Ctrl',
         controllerAs: 'Assignment1'
+      })
+      .when('/Assignment2', {
+        templateUrl: 'views/assignment2.html',
+        controller: 'Assignment2Ctrl',
+        controllerAs: 'Assignment2'
+      })
+      .when('/GitLink', {
+        templateUrl: 'views/gitlink.html',
+        controller: 'gitlinkCtrl',
+        controllerAs: 'gitlink'
       })
       .otherwise({
         redirectTo: '/'
