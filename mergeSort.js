@@ -1,4 +1,4 @@
-var i = console.time("mergeSort.js")
+var i = console.time("mergeSort.js") //For benchmarking purposes
 
 var arrayRandom = []
 var N= 1000000
@@ -28,8 +28,7 @@ function merge(left, right){
 
 
 function mergeSort(items){
-
-  // Terminal case: 0 or 1 item arrays don't need sorting
+  
   if (items.length < 2) {
     return items;
   }
