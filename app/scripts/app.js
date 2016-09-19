@@ -49,6 +49,11 @@ angular
         controller: 'Assignment3Ctrl',
         controllerAs: 'Assignment3'
       })
+        .when('/Assignment4', {
+            templateUrl: 'views/assignment4.html',
+            controller: 'Assignment4Ctrl',
+            controllerAs: 'Assignment4'
+        })
       .when('/GitLink', {
         templateUrl: 'views/gitlink.html',
         controller: 'gitlinkCtrl',
