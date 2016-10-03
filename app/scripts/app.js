@@ -10,7 +10,6 @@
  */
 angular
   .module('xpertwandererApp', [
-    'ngAnimate',
     'ngCookies',
     'ngResource',
     'ngRoute',
@@ -58,6 +57,11 @@ angular
         templateUrl: 'views/gitlink.html',
         controller: 'gitlinkCtrl',
         controllerAs: 'gitlink'
+      })
+      .when('/Assignment5', {
+        templateUrl: 'views/assignment5.html',
+        controller: 'Assignment5Ctrl',
+        controllerAs: 'Assignment5'
       })
       .otherwise({
         redirectTo: '/'
