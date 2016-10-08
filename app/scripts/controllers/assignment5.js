@@ -27,5 +27,5 @@ angular.module('xpertwandererApp')
         .error(function(error){
           alert(error);
         })
-    };
+     };
   });
