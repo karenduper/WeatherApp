@@ -6,7 +6,7 @@
  * @description
  * # Assignment6Ctrl
  * Controller of the xpertwandererApp
- */
+
 angular.module('xpertwandererApp')
   .controller('Assignment6Ctrl', function ($scope, $http) {
     $scope.postMessage = function(){
@@ -23,4 +23,9 @@ angular.module('xpertwandererApp')
         });
     }
 
+
+
   });
+
+
+ */

@@ -2,23 +2,24 @@
 
 /**
  * @ngdoc function
- * @name xpertwandererApp.controller:Assignment5Ctrl
+ * @name xpertwandererApp.controller:Assignment7Ctrl
  * @description
- * # Assignment5Ctrl
+ * # Assignment7Ctrl
  * Controller of the xpertwandererApp
  */
 angular.module('xpertwandererApp')
-  .controller('Assignment5Ctrl', function ($scope, $http) {
+  .controller('Assignment7Ctrl', function ($scope, $http) {
     this.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
       'Karma'
     ];
+
     $scope.getClima = function(){
       var data = {ciudades:[]};
       var arregloCiudades = $scope.ciudades.split(",");
       data.ciudades = arregloCiudades;
-      var url = "https://2wc47lxzk2.execute-api.us-east-1.amazonaws.com/dev/k-multipleFunction"
+      var url = "https://2wc47lxzk2.execute-api.us-east-1.amazonaws.com/dev/k-multipleFunction";
 
       $http.put(url, data)
         .success(function(data){
@@ -26,13 +27,14 @@ angular.module('xpertwandererApp')
         })
         .error(function(error){
           alert(error);
-        })
-     };
+        });
+    };
+
 
 
     $scope.login = function(valid){
       var url = "https://2wc47lxzk2.execute-api.us-east-1.amazonaws.com/dev/login";
-      var credentials ={
+      var credentials = {
         "username":"foo",
         "password": "laTucita",
 
@@ -42,12 +44,10 @@ angular.module('xpertwandererApp')
       $http.post(url, credentials)
         .success(function(data){
           localStorage.setItem("token", data.token);
-
         })
         .error(function(error){
           alert(error);
         });
     };
+
   });
-
-
