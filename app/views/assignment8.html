@@ -1,0 +1,241 @@
+<p><b><font size="5">Assignment 8: Read the Well Architected Framework white paper from Amazon Web Services and write a
+  summary about it in your personal web site. </font></b></p>
+
+<p>AWS Well-Architected Framework is a set of questions you can use to evaluate how well an architecture is aligned to
+  AWS best practices based on four pillars: security, reliability, performance efficiency, and cost optimization. </p>
+
+<p> The AWS Well-Architected-Framework has a set of general design principles you can implement when working in the cloud, such as:
+  <br>
+  - Stop guessing your capacity needs.<br>
+  - Test systems at production scale.<br>
+  - Lower the risk of architecture change. <br>
+  - Automate to make architectural experimentation easier.<br>
+  - Allow for evolutionary architecture.<br>
+</p>
+<br>
+<p><b><font size="3">The Four Pillars of the Well-Architected Framework</font></b></p>
+<p>Incorporating these pillars into the architecture helps produce stable and efficient systems so that you
+  can focus on the other aspects of design like functional requirements.</p>
+<br>
+
+<p><font size="3">The Security Pillar</font></p>
+<p>The security pillar includes the ability to protect information, systems, and assets while delivering business
+  value through risk evaluations and strategies to reduce impact. </p>
+
+<p><b>Design Principles </b><br>
+- Apply security at all layers<br>
+- Enable traceability<br>
+- Automate responses to security events<br>
+- Focus on securing your system<br>
+- Automate security best practices<br>
+</p>
+
+<p>In the cloud, security is composed of four areas:<br>
+1. Data protection: involves using controls and patterns designed to keep your data confidential while also making it
+  available for you when you need it.<br>
+  2. Privilege Management: control access to AWS services and resources for users.<br>
+3. Infrastructure Protection: involves control methodologies necessary to meet best practices and industry or regulatory obligations.<br>
+4. Detective Control: to detect or identify a security breach which can be used for legal compliance, thread identification,
+  among other things.<br>
+</p>
+<br>
+
+<p><font size="3">The Reliability Pillar</font></p>
+<p>The reliability pillar is about the ability of a system to recover from infrastructure or service disruptions,
+  acquire computing resources as needed and reduce disruptions. </p>
+
+<p><b>Design Principles</b><br>
+- Test recovery procedures<br>
+- Automatically recover from failure<br>
+- Scale horizontally to increase aggregate system availability<br>
+- Stop guessing capacity<br>
+</p>
+
+<p>In the cloud, reliability is composed of three areas:<br>
+1. Foundations: With AWS, most of these foundational requirements are already incorporated.<br>
+2. Change Management: In AWS you can keep track and monitor activity and automate responses to those changes.<br>
+3. Failure Management: it is of interest to know how to become aware of failures, how to respond to them,
+  and how to prevent them from happening again.<br>
+</p>
+<br>
+
+<p><font size="3">The Performance Efficiency Pillar</font></p>
+<p>The Performance Efficiency pillar focuses on the efficient use of computing resources to meet requirements and how to
+  maintain that efficiency as there are changes in demand and technologies.</p>
+
+<p><b>Design Principles</b><br>
+- Democratize advanced technologies<br>
+- Go global in minutes<br>
+- Use server-less architectures<br>
+- Experiment more often<br>
+</p>
+
+<p>In the cloud, performance efficiency is composed of four areas:<br>
+1. Compute: since AWS uses virtualized server you can change their capabilities allowing for experimentation with different server types.<br>
+2. Storage: In the same way as computation, storage is available in a number of different types so that it matches your needs.<br>
+3. Database: you can scale your database's compute and storage resources, often with no downtime.<br>
+4. Space-time trade-off: you can go global in minutes and deploy resources in multiple locations.<br>
+</p>
+<br>
+
+<p><font size="3">The Cost Optimization Pillar</font></p>
+<p>Cost Optimization pillar involves evaluating your ability to avoid or eliminate unneeded costs or suboptimal resources. </p>
+
+<p><b>Design Principles</b><br>
+- Transparently attribute expenditure<br>
+- Use managed services to reduce cost of ownership<br>
+- Trade capital expense for operating expense<br>
+- Benefit from economies of scale<br>
+- Stop spending money on data center operations<br>
+</p>
+
+<p>In the cloud, cost optimization is composed of four areas:<br>
+1. Match supply and demand: you can automatically provision resources to match demand.<br>
+2. Cost-effective resources: AWS provides managed services to reduce costs which can have a positive economic impact.<br>
+3. Expenditure awareness: Due to the agility and flexibility of the cloud it encourages innovation and fast-paced development and deployment.<br>
+4. Optimizing over time: As AWS releases new services and features it conforms to best practices to reevaluate
+  existing architectural decisions to ensure they continue to be the most cost effective.<br>
+</p>
+<br>
+<p>The following questions included in the documentation of The Well-Architected Framework where
+  you can find in detail the best practices for each, are meant to help you evaluate your own's system's architecture for the
+reasons stated above.</p>
+
+<p>Security Pillar<br>
+1. How are you encrypting and protecting your data at rest?<br>
+2. How are you encrypting and protecting your data in transit?<br>
+3. How are you protecting access to and use of the AWS root account credentials?<br>
+4. How are you defining roles and responsibilities of system users to control human access to the AWS Management Console and API?<br>
+5. How are you limiting automated access to AWS resources? <br>
+6. How are you managing keys and credentials?<br>
+7. How are you enforcing network and host-level boundary protection?<br>
+8. How are you enforcing AWS service level protection?<br>
+9. How are you protecting the integrity of the operating system on your Amazon EC2 instances?<br>
+10. How are you capturing and analyzing AWS logs?<br>
+
+</p>
+<p>
+Reliability Pillar<br>
+1. How are you managing AWS Service Limits for your account?<br>
+2. How are you planning your network topology on AWS?<br>
+3. Do you have an escalation path to deal with technical issues?<br>
+4. How does your system adapt to changes in demand?<br>
+5. How are you monitoring AWS resources?<br>
+6. How are you executing change management?<br>
+7. How are you backing up your data?<br>
+8. How does your system withstand component failures?<br>
+9. How are you planning for recovery?<br>
+</p>
+<p>
+Performance Pillar<br>
+1. How do you select the appropriate instance type for your system?<br>
+2. How do you ensure that you continue to have the most appropriate instance type as new instance types and features are introduced?<br>
+3. How do you monitor your instances post-launch to ensure they are performing as expected?<br>
+4. How do you ensure that the quantity of your instances matches demand?<br>
+5. How do you select the appropriate storage solution for your system?<br>
+6. How do you ensure that you continue to have the most appropriate storage solution as new storage solutions and features are launched?<br>
+7. How do you monitor your storage solution to ensure it is performing as expected?<br>
+8. How do you ensure that the capacity and throughput of your storage solutions matches demand?<br>
+9. How do you select the appropriate database solution for your system?<br>
+10. How do you ensure that you continue to have the most appropriate database solution and features as new database solution and
+  features are launched?<br>
+11. How do you monitor your databases to ensure performance is as expected?<br>
+12. How do you ensure the capacity and throughput of your databases matches demand?<br>
+13. How do you select the appropriate proximity and caching solutions for your system?<br>
+14. How do you ensure you continue to have the most appropriate proximity and caching solutions as new solutions are launched?<br>
+15. How do you monitor your proximity and caching solutions to ensure performance is as expected?<br>
+16. How do you ensure the proximity and caching solutions you have matches demand?<br>
+</p>
+<p>
+Cost Optimization Pillar<br>
+1. How do you make sure your capacity matches but does not substantially exceed what you need?<br>
+2. How are you optimizing your usage of AWS services?<br>
+3. Have you selected the appropriate resources to meet your cost targets?<br>
+4. Have you selected the appropriate pricing model to meet your cost targets?<br>
+5. Are there managed services (higher-level services than Amazon EC2, Amazon EBS, Amazon S3) you can use to improve your ROI?<br>
+6. What access controls and procedures do you have in place to govern AWS usage?<br>
+7. How are you monitoring usage and spending?<br>
+8. Do you decommission resources that you no longer need or stop resources that are temporarily not needed?<br>
+9. Did you consider data-transfer charges when designing your architecture?<br>
+10. How do you manage and/or consider the adoption of new services?<br>
+</p>
+
+
+<br>
+
+
+<p><b><font size="3">Callback VS Promise</font></b></p>
+
+<p>A callback is the asynchronous equivalent for a function, called at the completion of a given task preventing any
+  blocking, and allows other code to be run in the meantime. This allows you to have as many IO operations as your OS
+  can handle happening at the same time. </p>
+
+<p> The main idea behind a promise is that it represents the result of an asynchronous operation. A promise is in one of
+  three different states:<br>
+pending - The initial state of a promise.<br>
+fulfilled - The state of a promise representing a successful operation.<br>
+rejected - The state of a promise representing a failed operation.<br>
+Once a promise is fulfilled or rejected, it is immutable.
+</p>
+
+<p> Callback Hell is an anti-pattern seen in code were programmers don’t use callbacks wisely when programming asynchronously.
+  It consists of multiple nested callbacks which makes code hard to read and debug. </p>
+<p>
+
+</p>
+<p> The usage of Promise objects is one way to solve this. Promises help you naturally handle errors,
+  and write cleaner code by not having callback parameters, making it easier to maintain. For example:</p>
+<p>
+
+<div class="codebox">
+  <code>
+    // Callback approach<br>
+    async1(function(){<br>
+    async2(function(){<br>
+    async3(function(){<br>
+    ....<br>
+    });<br>
+    });<br>
+    });<br>
+    <br>
+    // Promise approach<br>
+    var task1 = async1();<br>
+    var task2 = task1.then(async2);<br>
+    var task3 = task2.then(async3);<br>
+    <br>
+    task3.catch(function(){<br>
+    // Solve your thrown errors from task1, task2, task3 here<br>
+    })<br>
+
+  </code>
+</div>
+
+</p>
+
+<p> For Promise to return values from asynchronous function and Throw and Catch exceptions, the asynchronous
+  function itself should return a Promise object which contains the methods Try and Catch. Those will be called depending on
+  the state of the Promise object (fulfilled/rejected).</p>
+
+<p>
+
+<div class="codebox">
+  <code>
+    asyncWithPromise() // Returns a promise object<br>
+    .then(function(){ // if object's state is fulfilled, go here<br>
+    ...<br>
+    })<br>
+    .catch(function(){ // if object's state is rejected, go here<br>
+    ...<br>
+    })<br>
+  </code>
+</div>
+
+
+<br>
+</p>
+<p> References:<br>
+http://colintoh.com/blog/staying-sane-with-asynchronous-programming-promises-and-generators<br>
+https://www.promisejs.org/<br>
+https://docs.nodejitsu.com/articles/getting-started/control-flow/what-are-callbacks/<br>
+  http://d0.awsstatic.com/whitepapers/architecture/AWS_Well-Architected_Framework.pdf<br>
+</p>
